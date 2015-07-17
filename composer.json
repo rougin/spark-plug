@@ -1,25 +1,25 @@
 {
-  "name": "rougin/spark-plug",
-  "description": "Another way to access CodeIgniter's instance",
-  "keywords": ["codeigniter", "instance", "php"],
-  "require": {
-    "php": ">=5.3.0"
-  },
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Rougin Gutib",
-      "email": "rougingutib@gmail.com"
+    "name": "rougin/spark-plug",
+    "description": "Another way to access CodeIgniter's instance",
+    "keywords": ["codeigniter", "instance", "php"],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rougin Gutib",
+            "email": "rougingutib@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rougin\\SparkPlug\\": "src/"
+        }
+    },
+    "suggest": {
+        "rougin/codeigniter": "Yet another way to install CodeIgniter via Composer",
+        "rougin/combustor": "A tool for speeding up web development in CodeIgniter",
+        "rougin/refinery": "A command line interface for Migrations Class in CodeIgniter"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Rougin\\SparkPlug\\": "src/"
-    }
-  },
-  "suggest": {
-    "rougin/codeigniter": "Yet another way to install CodeIgniter via Composer",
-    "rougin/combustor": "A tool for speeding up web development in CodeIgniter",
-    "rougin/refinery": "A command line interface for Migrations Class in CodeIgniter"
-  }
 }
