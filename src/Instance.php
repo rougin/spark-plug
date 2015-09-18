@@ -64,14 +64,17 @@ class Instance
 
         $slash = DIRECTORY_SEPARATOR;
 
-        foreach ($iterator as $path) {
-            $core = 'core' . $slash . 'CodeIgniter.php';
+        if ( ! defined('BASEPATH')) {
+            foreach ($iterator as $path) {
+                $core = 'core' . $slash . 'CodeIgniter.php';
 
-            if (strpos($path->__toString(), $core) !== FALSE) {
-                $basepath = str_replace($core, '', $path->__toString());
-                define('BASEPATH', $basepath);
+                if (strpos($path->__toString(), $core) !== FALSE) {
+                    $basepath = str_replace($core, '', $path->__toString());
 
-                break;
+                    define('BASEPATH', $basepath);
+
+                    break;
+                }
             }
         }
 
@@ -83,16 +86,23 @@ class Instance
 
         // Load the Common and Base Controller class
         require BASEPATH . 'core/Common.php';
-        require BASEPATH . 'core/Controller.php';
+
+        if ( ! class_exists('CI_Controller')) {
+            require BASEPATH . 'core/Controller.php';
+        }
 
         /**
          * Load the framework constants
          */
 
-        if (file_exists(APPPATH . 'config/' . ENVIRONMENT . '/constants.php')) {
-            require APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
-        } else {
-            require APPPATH . 'config/constants.php';
+        if ( ! defined('FILE_READ_MODE')) {
+            $constants = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
+
+            if (file_exists($constants)) {
+                require $constants;
+            } else {
+                require APPPATH . 'config/constants.php';
+            }
         }
 
         // Important charset-related stuff
