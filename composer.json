@@ -1,20 +1,45 @@
 {
     "name": "rougin/spark-plug",
-    "description": "Another way to access CodeIgniter's instance",
-    "keywords": ["codeigniter", "instance", "php"],
-    "require": {
-        "php": ">=5.3.0"
-    },
+    "description": "Yet another way to access CodeIgniter's instance",
+    "keywords": [
+        "codeigniter",
+        "instance",
+        "php",
+        "spark-plug"
+    ],
+    "homepage": "https://github.com/rougin/spark-plug",
     "license": "MIT",
     "authors": [
         {
-            "name": "Rougin Gutib",
-            "email": "rougingutib@gmail.com"
+            "name": "Rougin Royce Gutib",
+            "email": "rougingutib@gmail.com",
+            "homepage": "http://rougin.github.io",
+            "role": "Developer"
         }
     ],
+    "require": {
+        "php" : ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*",
+        "scrutinizer/ocular": "~1.1"
+    },
     "autoload": {
         "psr-4": {
-            "Rougin\\SparkPlug\\": "src/"
+            "Rougin\\SparkPlug\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rougin\\SparkPlug\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
         }
     },
     "suggest": {
