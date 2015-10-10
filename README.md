@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Another way to access CodeIgniter's instance
+Another way to access [CodeIgniter](https://codeigniter.com/)'s instance
 
 ## Install
 
@@ -20,13 +20,12 @@ $ composer require rougin/spark-plug
 ## Usage
 
 ``` php
-use Rougin\SparkPlug\Instance;
+$sparkPlug = new Rougin\SparkPlug\SparkPlug($GLOBALS, $_SERVER);
 
-$instance = new Instance;
-$codeigniter = $instance->get();
+$codeIgniter = $sparkPlug->getCodeIgniter();
 
 // You can now use its instance
-$codeigniter->load->model('foo');
+$codeIgniter->load->model('foo');
 ```
 
 ## Change Log
