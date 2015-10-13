@@ -176,8 +176,13 @@ class SparkPlug
         foreach ($iterator as $file) {
             $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
 
-            if (strpos($file->getPathname(), $core) !== FALSE) { 
-                define('BASEPATH', str_replace($core, '', $file->getPathname()));
+            if (strpos($file->getPathname(), $core) !== FALSE) {
+                if ( ! defined('BASEPATH')) {
+                    define(
+                        'BASEPATH',
+                        str_replace($core, '', $file->getPathname())
+                    );
+                }
 
                 break;
             }
