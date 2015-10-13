@@ -2,12 +2,12 @@
 
 All Notable changes to `Spark Plug` will be documented in this file
 
-## [0.1.2](https://github.com/rougin/transcribe/compare/v0.1.0...v0.1.2) - 2015-09-18
+## [0.1.2](https://github.com/rougin/spark-plug/compare/v0.1.0...v0.1.2) - 2015-09-18
 
 ### Fixed
 - Issues on defined constants
 
-## [0.1.1](https://github.com/rougin/transcribe/compare/v0.1.0...v0.1.1) - 2015-09-15
+## [0.1.1](https://github.com/rougin/spark-plug/compare/v0.1.0...v0.1.1) - 2015-09-15
 
 ### Added
 - Namespaces
