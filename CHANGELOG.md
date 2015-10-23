@@ -2,6 +2,12 @@
 
 All Notable changes to `Spark Plug` will be documented in this file
 
+## [0.2.0](https://github.com/rougin/spark-plug/compare/v0.1.2...v0.2.0) - 2015-10-23
+
+### Changed
+- `Instance` to `SparkPlug`
+- Code structure
+
 ## [0.1.2](https://github.com/rougin/spark-plug/compare/v0.1.0...v0.1.2) - 2015-09-18
 
 ### Fixed
