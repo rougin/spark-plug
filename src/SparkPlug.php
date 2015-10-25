@@ -43,9 +43,9 @@ class SparkPlug
     public function getCodeIgniter()
     {
         // Sets global configurations
-        $this->globals['CFG'] =& load_class('Config', 'core');
-        $this->globals['UNI'] =& load_class('Utf8', 'core');
-        $this->globals['SEC'] =& load_class('Security', 'core');
+        $GLOBALS['CFG'] =& load_class('Config', 'core');
+        $GLOBALS['UNI'] =& load_class('Utf8', 'core');
+        $GLOBALS['SEC'] =& load_class('Security', 'core');
 
         // Loads the CodeIgniter's core classes
         load_class('Loader', 'core');
@@ -114,7 +114,10 @@ class SparkPlug
 
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
-        @ini_set('mbstring.internal_encoding', $charset);
+        
+        if ( ! ini_get('mbstring.internal_encoding')) {
+            ini_set('mbstring.internal_encoding', $charset);
+        }
 
         // This is required for mb_convert_encoding() to strip invalid
         // characters. That's utilized by CI_Utf8, but it's also done for
@@ -133,7 +136,9 @@ class SparkPlug
 
         // iconv.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
-        @ini_set('iconv.internal_encoding', $charset);
+        if ( ! ini_get('iconv.internal_encoding')) {
+            ini_set('iconv.internal_encoding', $charset);
+        }
 
         if (is_php('5.6')) {
             ini_set('php.internal_encoding', $charset);
