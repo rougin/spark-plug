@@ -24,12 +24,13 @@ class SparkPlug
      * @param array $globals
      * @param array $server
      */
-    public function __construct(array $globals, array $server)
+    public function __construct(array &$globals, array $server)
     {
-        $this->globals = $globals;
+        $this->globals =& $globals;
         $this->server = $server;
 
         $this->setPaths();
+        $this->setEnvironment();
         $this->loadConstants();
         $this->loadClasses();
         $this->setCharSet();
@@ -43,9 +44,9 @@ class SparkPlug
     public function getCodeIgniter()
     {
         // Sets global configurations
-        $GLOBALS['CFG'] =& load_class('Config', 'core');
-        $GLOBALS['UNI'] =& load_class('Utf8', 'core');
-        $GLOBALS['SEC'] =& load_class('Security', 'core');
+        $this->globals['CFG'] =& load_class('Config', 'core');
+        $this->globals['UNI'] =& load_class('Utf8', 'core');
+        $this->globals['SEC'] =& load_class('Security', 'core');
 
         // Loads the CodeIgniter's core classes
         load_class('Loader', 'core');
@@ -70,8 +71,6 @@ class SparkPlug
         if ( ! class_exists('CI_Controller')) {
             require BASEPATH . 'core/Controller.php';
         }
-
-        return;
     }
 
     /**
@@ -102,6 +101,7 @@ class SparkPlug
     protected function setCharSet()
     {
         $charset = strtoupper(config_item('charset'));
+
         ini_set('default_charset', $charset);
 
         if ( ! extension_loaded('mbstring')) {
@@ -124,14 +124,12 @@ class SparkPlug
         // consistency with iconv.
         mb_substitute_character('none');
 
-        if ( ! extension_loaded('iconv')) {
-            define('ICONV_ENABLED', FALSE);
-        }
-
         // There's an ICONV_IMPL constant, but the PHP manual says that using
         // iconv's predefined constants is "strongly discouraged".
         if ( ! defined('ICONV_ENABLED')) {
-            define('ICONV_ENABLED', TRUE);
+            $isEnabled = extension_loaded('iconv') ? TRUE: FALSE;
+
+            define('ICONV_ENABLED', $isEnabled);
         }
 
         // iconv.internal_encoding is deprecated starting with PHP 5.6
@@ -143,14 +141,28 @@ class SparkPlug
         if (is_php('5.6')) {
             ini_set('php.internal_encoding', $charset);
         }
+    }
 
-        return;
+    /**
+     * Sets up the current environment
+     *
+     * @return void
+     */
+    protected function setEnvironment()
+    {
+        if ( ! defined('ENVIRONMENT')) {
+            $environment = isset($this->server['CI_ENV'])
+                ? $this->server['CI_ENV']
+                : 'development';
+
+            define('ENVIRONMENT', $environment);
+        }
     }
 
     /**
      * Sets up the APPPATH, VENDOR, and BASEPATH constants
      * 
-     * @return void|string
+     * @return void
      */
     protected function setPaths()
     {
@@ -162,16 +174,12 @@ class SparkPlug
             define('APPPATH', realpath('application') . '/');
         }
 
-        if ( ! defined('ENVIRONMENT')) {
-            $environment = isset($this->server['CI_ENV'])
-                ? $this->server['CI_ENV']
-                : 'development';
-
-            define('ENVIRONMENT', $environment);
-        }
-
         if ( ! defined('VIEWPATH')) {
             define('VIEWPATH', APPPATH . '/views/');
+        }
+
+        if (defined('BASEPATH')) {
+            return;
         }
 
         $iterator = new RecursiveIteratorIterator(
@@ -182,17 +190,12 @@ class SparkPlug
             $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
 
             if (strpos($file->getPathname(), $core) !== FALSE) {
-                if ( ! defined('BASEPATH')) {
-                    define(
-                        'BASEPATH',
-                        str_replace($core, '', $file->getPathname())
-                    );
-                }
+                $path = str_replace($core, '', $file->getPathname());
+
+                define('BASEPATH', $path);
 
                 break;
             }
         }
-
-        return;
     }
 }
