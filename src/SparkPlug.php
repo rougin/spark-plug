@@ -10,15 +10,22 @@ use RecursiveIteratorIterator;
 /**
  * Spark Plug Class
  *
- * Get the CodeIgniter's instance
+ * Returns the CodeIgniter's instance.
  * 
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
 class SparkPlug
 {
-    protected $globals;
-    protected $server;
+    /**
+     * @var array
+     */
+    protected $globals = [];
+
+    /**
+     * @var array
+     */
+    protected $server = [];
 
     /**
      * @param array $globals
@@ -74,7 +81,7 @@ class SparkPlug
     }
 
     /**
-     * Loads the framework constants
+     * Loads the framework constants.
      * 
      * @return void
      */
@@ -144,7 +151,7 @@ class SparkPlug
     }
 
     /**
-     * Sets up the current environment
+     * Sets up the current environment.
      *
      * @return void
      */
@@ -160,7 +167,7 @@ class SparkPlug
     }
 
     /**
-     * Sets up the APPPATH, VENDOR, and BASEPATH constants
+     * Sets up the APPPATH, VENDOR, and BASEPATH constants.
      * 
      * @return void
      */

@@ -8,6 +8,6 @@ if ( ! function_exists('get_instance')) {
      */
     function &get_instance()
     {
-    	return \CI_Controller::get_instance();
+        return \CI_Controller::get_instance();
     }
 }
