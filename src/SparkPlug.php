@@ -4,8 +4,8 @@ namespace Rougin\SparkPlug;
 
 use CI_Controller;
 use FilesystemIterator;
-use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 /**
  * Spark Plug Class
@@ -28,13 +28,20 @@ class SparkPlug
     protected $server = [];
 
     /**
-     * @param array $globals
-     * @param array $server
+     * @var string
      */
-    public function __construct(array &$globals, array $server)
+    protected $path = '';
+
+    /**
+     * @param array  $globals
+     * @param array  $server
+     * @param string $path
+     */
+    public function __construct(array &$globals, array $server, $path = '')
     {
         $this->globals =& $globals;
         $this->server = $server;
+        $this->path = $path;
 
         $this->setPaths();
         $this->setEnvironment();
@@ -173,12 +180,20 @@ class SparkPlug
      */
     protected function setPaths()
     {
-        if ( ! defined('VENDOR')) {
-            define('VENDOR', realpath('vendor') . '/');
+        $applicationPath = realpath('application');
+        $vendorPath = realpath('vendor');
+
+        if ($this->path) {
+            $vendorPath = $this->path . '/vendor';
+            $applicationPath = $this->path . '/application';
         }
 
         if ( ! defined('APPPATH')) {
-            define('APPPATH', realpath('application') . '/');
+            define('APPPATH', $applicationPath . '/');
+        }
+
+        if ( ! defined('VENDOR')) {
+            define('VENDOR', $vendorPath . '/');
         }
 
         if ( ! defined('VIEWPATH')) {

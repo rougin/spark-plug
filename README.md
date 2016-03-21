@@ -19,6 +19,8 @@ $ composer require rougin/spark-plug
 
 ## Usage
 
+### Basic Usage
+
 ``` php
 $sparkPlug = new Rougin\SparkPlug\SparkPlug($GLOBALS, $_SERVER);
 
@@ -27,6 +29,31 @@ $codeIgniter = $sparkPlug->getCodeIgniter();
 // You can now use its instance
 $codeIgniter->load->model('foo');
 ```
+
+### Used as to mock CodeIgniter's instance for unit testing
+
+``` php
+class SparkPlugTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * Checks if the CodeIgniter instance is successfully retrieved.
+     * 
+     * @return void
+     */
+    public function testCodeIgniterInstance()
+    {
+        // Path of your test application
+        $appPath = __DIR__ . '/TestApp';
+
+        $sparkPlug = new \Rougin\SparkPlug\SparkPlug($GLOBALS, $_SERVER, $appPath);
+        $codeIgniter = $sparkPlug->getCodeIgniter();
+
+        $this->assertInstanceOf('CI_Controller', $codeIgniter);
+    }
+}
+```
+
+**NOTE**: [`rougin/codeigniter`](https://github.com/rougin/codeigniter) and a test application directory are required to use it as a mock instance. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more information.
 
 ## Change Log
 

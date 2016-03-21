@@ -2,6 +2,12 @@
 
 All Notable changes to `Spark Plug` will be documented in this file
 
+## [0.3.0](https://github.com/rougin/spark-plug/compare/v0.2.0...v0.3.0) - 2016-03-22
+
+### Added
+- `$path` in constructor for setting test application directory (useful for unit testing)
+- Tests
+
 ## [0.2.0](https://github.com/rougin/spark-plug/compare/v0.1.2...v0.2.0) - 2015-10-23
 
 ### Changed
