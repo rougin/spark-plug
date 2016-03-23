@@ -129,7 +129,7 @@ class SparkPlug
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
         
-        if ( ! ini_get('mbstring.internal_encoding')) {
+        if ( ! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
             ini_set('mbstring.internal_encoding', $charset);
         }
 
@@ -148,7 +148,7 @@ class SparkPlug
 
         // iconv.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
-        if ( ! ini_get('iconv.internal_encoding')) {
+        if ( ! is_php('5.6') && ! ini_get('iconv.internal_encoding')) {
             ini_set('iconv.internal_encoding', $charset);
         }
 
