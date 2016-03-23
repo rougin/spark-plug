@@ -30,7 +30,7 @@ $codeIgniter = $sparkPlug->getCodeIgniter();
 $codeIgniter->load->model('foo');
 ```
 
-### Used as to mock CodeIgniter's instance for unit testing
+### As a mock instance for unit testing
 
 ``` php
 class SparkPlugTest extends \PHPUnit_Framework_TestCase
@@ -53,7 +53,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-**NOTE**: [`rougin/codeigniter`](https://github.com/rougin/codeigniter) and a test application directory are required to use it as a mock instance. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more information.
+**NOTE**: [rougin/codeigniter](https://github.com/rougin/codeigniter) and a test application directory are required to use it as a mock instance. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more information.
 
 ## Change Log
 
