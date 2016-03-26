@@ -8,9 +8,9 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
 /**
- * Spark Plug Class
+ * Spark Plug
  *
- * Returns the CodeIgniter's instance.
+ * Returns a CodeIgniter's instance.
  * 
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
@@ -51,7 +51,7 @@ class SparkPlug
     }
 
     /**
-     * Gets an instance of CodeIgniter.
+     * Returns a CodeIgniter instance.
      * 
      * @return CodeIgniter
      */
@@ -68,6 +68,7 @@ class SparkPlug
         load_class('Input', 'core');
         load_class('Lang', 'core');
 
+        // Loads the get_instance.php for loading libraries
         require 'get_instance.php';
 
         return new CI_Controller;
@@ -98,13 +99,14 @@ class SparkPlug
             return;
         }
 
-        $constants = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
+        $envConstants = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
+        $constants = APPPATH . 'config/constants.php';
 
-        if (file_exists($constants)) {
-            return require $constants;
+        if (file_exists($envConstants)) {
+            $constants = $envConstants;
         }
 
-        return require APPPATH . 'config/constants.php';
+        require $constants;
     }
 
     /**
@@ -118,17 +120,8 @@ class SparkPlug
 
         ini_set('default_charset', $charset);
 
-        if ( ! extension_loaded('mbstring')) {
-            define('MB_ENABLED', FALSE);
-        }
-
-        if ( ! defined('MB_ENABLED')) {
-            define('MB_ENABLED', TRUE);
-        }
-
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
-        
         if ( ! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
             ini_set('mbstring.internal_encoding', $charset);
         }
@@ -141,19 +134,7 @@ class SparkPlug
         // There's an ICONV_IMPL constant, but the PHP manual says that using
         // iconv's predefined constants is "strongly discouraged".
         if ( ! defined('ICONV_ENABLED')) {
-            $isEnabled = extension_loaded('iconv') ? TRUE: FALSE;
-
-            define('ICONV_ENABLED', $isEnabled);
-        }
-
-        // iconv.internal_encoding is deprecated starting with PHP 5.6
-        // and it's usage triggers E_DEPRECATED messages.
-        if ( ! is_php('5.6') && ! ini_get('iconv.internal_encoding')) {
-            ini_set('iconv.internal_encoding', $charset);
-        }
-
-        if (is_php('5.6')) {
-            ini_set('php.internal_encoding', $charset);
+            define('ICONV_ENABLED', extension_loaded('iconv'));
         }
     }
 
@@ -164,11 +145,13 @@ class SparkPlug
      */
     protected function setEnvironment()
     {
-        if ( ! defined('ENVIRONMENT')) {
-            $environment = isset($this->server['CI_ENV'])
-                ? $this->server['CI_ENV']
-                : 'development';
+        $environment = 'development';
 
+        if (isset($this->server['CI_ENV'])) {
+            $environment = $this->server['CI_ENV'];
+        }
+
+        if ( ! defined('ENVIRONMENT')) {
             define('ENVIRONMENT', $environment);
         }
     }
