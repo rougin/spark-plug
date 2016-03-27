@@ -22,9 +22,7 @@ $ composer require rougin/spark-plug
 ### Basic Usage
 
 ``` php
-$sparkPlug = new Rougin\SparkPlug\SparkPlug($GLOBALS, $_SERVER);
-
-$codeIgniter = $sparkPlug->getCodeIgniter();
+$codeIgniter = Rougin\SparkPlug\Instance::create();
 
 // You can now use its instance
 $codeIgniter->load->model('foo');
@@ -45,10 +43,9 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
         // Path of your test application
         $appPath = __DIR__ . '/TestApp';
 
-        $sparkPlug = new \Rougin\SparkPlug\SparkPlug($GLOBALS, $_SERVER, $appPath);
-        $codeIgniter = $sparkPlug->getCodeIgniter();
+        $ci = \Rougin\SparkPlug\Instance::create($appPath);
 
-        $this->assertInstanceOf('CI_Controller', $codeIgniter);
+        $this->assertInstanceOf('CI_Controller', $ci);
     }
 }
 ```
