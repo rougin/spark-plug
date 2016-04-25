@@ -2,7 +2,7 @@
 
 All Notable changes to `Spark Plug` will be documented in this file
 
-## [0.4.0](https://github.com/rougin/spark-plug/compare/v0.2.0...v0.4.0) - 2016-03-26
+## [0.4.0](https://github.com/rougin/spark-plug/compare/v0.2.0...v0.4.0) - 2016-04-25
 
 ### Added
 - `Instance::create`
