@@ -22,10 +22,10 @@ $ composer require rougin/spark-plug
 ### Basic Usage
 
 ``` php
-$codeIgniter = Rougin\SparkPlug\Instance::create();
+$ci = Rougin\SparkPlug\Instance::create();
 
 // You can now use its instance
-$codeIgniter->load->model('foo');
+$ci->load->helper('inflector');
 ```
 
 ### As a mock instance for unit testing
@@ -43,6 +43,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
         // Path of your test application
         $appPath = __DIR__ . '/TestApp';
 
+        // Instance::create($appPath, $_SERVER, $GLOBALS)
         $ci = \Rougin\SparkPlug\Instance::create($appPath);
 
         $this->assertInstanceOf('CI_Controller', $ci);
@@ -50,7 +51,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-**NOTE**: [rougin/codeigniter](https://github.com/rougin/codeigniter) and a test application directory are required to use it as a mock instance. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more information.
+**NOTE**: To create a mock instance, [rougin/codeigniter](https://github.com/rougin/codeigniter) and a test application directory are required. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more examples.
 
 ## Change Log
 
