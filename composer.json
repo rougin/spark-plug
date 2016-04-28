@@ -45,7 +45,7 @@
     },
     "suggest": {
         "rougin/codeigniter": "Yet another way to install CodeIgniter via Composer",
-        "rougin/combustor": "A tool for speeding up web development in CodeIgniter",
-        "rougin/refinery": "A command line interface for Migrations Class in CodeIgniter"
+        "rougin/combustor": "Lets you generate controllers, models, and views from database tables for CodeIgniter",
+        "rougin/refinery": "\"Ready-to-eat\" migrations for CodeIgniter"
     }
 }
