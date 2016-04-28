@@ -120,6 +120,10 @@ class SparkPlug
 
         ini_set('default_charset', $charset);
 
+        if ( ! defined('MB_ENABLED')) {
+            define('MB_ENABLED', extension_loaded('mbstring'));
+        }
+
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
         if ( ! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
