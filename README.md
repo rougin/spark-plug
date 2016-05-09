@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Another way to access [CodeIgniter](https://codeigniter.com/)'s instance
+Obtains an instance of [CodeIgniter](https://codeigniter.com/) gracefully.
 
 ## Install
 
@@ -51,7 +51,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-**NOTE**: To create a mock instance, [rougin/codeigniter](https://github.com/rougin/codeigniter) and a test application directory are required. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more examples.
+**NOTE**: To create a mock instance, a [rougin/codeigniter](https://github.com/rougin/codeigniter) package and a test application directory are required. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more examples.
 
 ## Change Log
 
@@ -65,7 +65,7 @@ $ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
 ## Security
 

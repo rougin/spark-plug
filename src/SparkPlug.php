@@ -42,21 +42,21 @@ class SparkPlug
         $this->globals =& $globals;
         $this->server = $server;
         $this->path = $path;
-
-        $this->setPaths();
-        $this->setEnvironment();
-        $this->loadConstants();
-        $this->loadClasses();
-        $this->setCharSet();
     }
 
     /**
      * Returns a CodeIgniter instance.
      * 
-     * @return CodeIgniter
+     * @return \CI_Controller
      */
     public function getCodeIgniter()
     {
+        $this->setPaths();
+        $this->setEnvironment();
+        $this->loadConstants();
+        $this->loadClasses();
+        $this->setCharSet();
+
         // Sets global configurations
         $this->globals['CFG'] =& load_class('Config', 'core');
         $this->globals['UNI'] =& load_class('Utf8', 'core');
@@ -71,7 +71,9 @@ class SparkPlug
         // Loads the get_instance.php for loading libraries
         require 'get_instance.php';
 
-        return new CI_Controller;
+        $ci = CI_Controller::get_instance();
+
+        return (empty($ci)) ? new CI_Controller : $ci;
     }
 
     /**
@@ -191,9 +193,8 @@ class SparkPlug
             return;
         }
 
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(getcwd())
-        );
+        $directory = new RecursiveDirectoryIterator(getcwd());
+        $iterator = new RecursiveIteratorIterator($directory);
 
         foreach ($iterator as $file) {
             $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';

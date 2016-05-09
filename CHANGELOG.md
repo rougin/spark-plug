@@ -1,6 +1,11 @@
 # Changelog
 
-All Notable changes to `Spark Plug` will be documented in this file
+All Notable changes to `Spark Plug` will be documented in this file.
+
+## [0.4.2](https://github.com/rougin/spark-plug/compare/v0.4.1...v0.4.2) - 2016-05-09
+
+### Fixed
+- `CI_` prefix issue when loading a library from `application/libraries`
 
 ## [0.4.1](https://github.com/rougin/spark-plug/compare/v0.4.0...v0.4.1) - 2016-04-29
 
