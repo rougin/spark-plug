@@ -2,6 +2,11 @@
 
 All Notable changes to `Spark Plug` will be documented in this file.
 
+## [0.4.3](https://github.com/rougin/spark-plug/compare/v0.4.2...v0.4.3) - 2016-05-13
+
+### Changed
+- Version of `rougin/codeigniter` to `^3.0.0`
+
 ## [0.4.2](https://github.com/rougin/spark-plug/compare/v0.4.1...v0.4.2) - 2016-05-09
 
 ### Fixed
