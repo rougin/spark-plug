@@ -28,7 +28,7 @@ class SparkPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * Checks if the CodeIgniter instance is successfully retrieved.
-     * 
+     *
      * @return void
      */
     public function testCodeIgniterInstance()
@@ -38,7 +38,7 @@ class SparkPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * Checks if the loaded library can be retrieved.
-     * 
+     *
      * @return void
      */
     public function testLoadLibrary()
@@ -50,7 +50,7 @@ class SparkPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * Checks if the loaded helper can be retrieved.
-     * 
+     *
      * @return void
      */
     public function testLoadHelper()
@@ -62,7 +62,7 @@ class SparkPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * Checks the environment-based configurations.
-     * 
+     *
      * @return void
      */
     public function testEnvironmentConstants()

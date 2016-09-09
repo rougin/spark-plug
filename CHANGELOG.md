@@ -2,6 +2,11 @@
 
 All Notable changes to `Spark Plug` will be documented in this file.
 
+## [0.4.4](https://github.com/rougin/spark-plug/compare/v0.4.3...v0.4.4) - 2016-09-10
+
+### Added
+- StyleCI for conforming code to PSR standards
+
 ## [0.4.3](https://github.com/rougin/spark-plug/compare/v0.4.2...v0.4.3) - 2016-05-13
 
 ### Changed
