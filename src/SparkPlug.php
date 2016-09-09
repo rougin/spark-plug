@@ -11,7 +11,7 @@ use RecursiveDirectoryIterator;
  * Spark Plug
  *
  * Returns a CodeIgniter's instance.
- * 
+ *
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
@@ -46,7 +46,7 @@ class SparkPlug
 
     /**
      * Returns a CodeIgniter instance.
-     * 
+     *
      * @return \CI_Controller
      */
     public function getCodeIgniter()
@@ -78,21 +78,21 @@ class SparkPlug
 
     /**
      * Loads the Common and the Base Controller class.
-     * 
+     *
      * @return void
      */
     protected function loadClasses()
     {
         require BASEPATH . 'core/Common.php';
 
-        if ( ! class_exists('CI_Controller')) {
+        if (! class_exists('CI_Controller')) {
             require BASEPATH . 'core/Controller.php';
         }
     }
 
     /**
      * Loads the framework constants.
-     * 
+     *
      * @return void
      */
     protected function loadConstants()
@@ -122,13 +122,13 @@ class SparkPlug
 
         ini_set('default_charset', $charset);
 
-        if ( ! defined('MB_ENABLED')) {
+        if (! defined('MB_ENABLED')) {
             define('MB_ENABLED', extension_loaded('mbstring'));
         }
 
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
-        if ( ! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
+        if (! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
             ini_set('mbstring.internal_encoding', $charset);
         }
 
@@ -139,7 +139,7 @@ class SparkPlug
 
         // There's an ICONV_IMPL constant, but the PHP manual says that using
         // iconv's predefined constants is "strongly discouraged".
-        if ( ! defined('ICONV_ENABLED')) {
+        if (! defined('ICONV_ENABLED')) {
             define('ICONV_ENABLED', extension_loaded('iconv'));
         }
     }
@@ -157,14 +157,14 @@ class SparkPlug
             $environment = $this->server['CI_ENV'];
         }
 
-        if ( ! defined('ENVIRONMENT')) {
+        if (! defined('ENVIRONMENT')) {
             define('ENVIRONMENT', $environment);
         }
     }
 
     /**
      * Sets up the APPPATH, VENDOR, and BASEPATH constants.
-     * 
+     *
      * @return void
      */
     protected function setPaths()
@@ -177,15 +177,15 @@ class SparkPlug
             $applicationPath = $this->path . '/application';
         }
 
-        if ( ! defined('APPPATH')) {
+        if (! defined('APPPATH')) {
             define('APPPATH', $applicationPath . '/');
         }
 
-        if ( ! defined('VENDOR')) {
+        if (! defined('VENDOR')) {
             define('VENDOR', $vendorPath . '/');
         }
 
-        if ( ! defined('VIEWPATH')) {
+        if (! defined('VIEWPATH')) {
             define('VIEWPATH', APPPATH . '/views/');
         }
 
@@ -199,7 +199,7 @@ class SparkPlug
         foreach ($iterator as $file) {
             $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
 
-            if (strpos($file->getPathname(), $core) !== FALSE) {
+            if (strpos($file->getPathname(), $core) !== false) {
                 $path = str_replace($core, '', $file->getPathname());
 
                 define('BASEPATH', $path);

@@ -6,7 +6,7 @@ namespace Rougin\SparkPlug;
  * Instance
  *
  * Creates an instance based on SparkPlug class.
- * 
+ *
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
@@ -14,7 +14,7 @@ class Instance
 {
     /**
      * Creates an instance of CodeIgniter based on the application path.
-     * 
+     *
      * @param  string $appPath
      * @param  array  $server
      * @param  array  $globals
