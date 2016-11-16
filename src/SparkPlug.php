@@ -71,7 +71,7 @@ class SparkPlug
     {
         require BASEPATH . 'core/Common.php';
 
-        class_exists('CI_Controller') or require BASEPATH . 'core/Controller.php';
+        class_exists('CI_Controller') || require BASEPATH . 'core/Controller.php';
     }
 
     /**
@@ -85,7 +85,7 @@ class SparkPlug
         $environment = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
         $filename    = file_exists($environment) ? $environment : $constants;
 
-        defined('FILE_READ_MODE') or require $filename;
+        defined('FILE_READ_MODE') || require $filename;
     }
 
     /**
@@ -135,7 +135,7 @@ class SparkPlug
 
         ini_set('default_charset', $charset);
 
-        defined('MB_ENABLED') or define('MB_ENABLED', extension_loaded('mbstring'));
+        defined('MB_ENABLED') || define('MB_ENABLED', extension_loaded('mbstring'));
 
         // mbstring.internal_encoding is deprecated starting with PHP 5.6
         // and it's usage triggers E_DEPRECATED messages.
@@ -159,7 +159,7 @@ class SparkPlug
             $environment = $this->server['CI_ENV'];
         }
 
-        defined('ENVIRONMENT') or define('ENVIRONMENT', $environment);
+        defined('ENVIRONMENT') || define('ENVIRONMENT', $environment);
     }
 
     /**
@@ -188,7 +188,7 @@ class SparkPlug
 
         // There's an ICONV_IMPL constant, but the PHP manual says that using
         // iconv's predefined constants is "strongly discouraged".
-        defined('ICONV_ENABLED') or define('ICONV_ENABLED', extension_loaded('iconv'));
+        defined('ICONV_ENABLED') || define('ICONV_ENABLED', extension_loaded('iconv'));
     }
 
     /**
@@ -205,9 +205,9 @@ class SparkPlug
         ];
 
         foreach ($paths as $key => $value) {
-            defined($key) or define($key, $value);
+            defined($key) || define($key, $value);
         }
 
-        defined('BASEPATH') or $this->setBasePath();
+        defined('BASEPATH') || $this->setBasePath();
     }
 }
