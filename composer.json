@@ -1,6 +1,6 @@
 {
     "name": "rougin/spark-plug",
-    "description": "Yet another way to access CodeIgniter's instance",
+    "description": "Obtains an instance of CodeIgniter gracefully",
     "keywords": [
         "codeigniter",
         "instance",
@@ -32,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Rougin\\SparkPlug\\Test\\": "tests"
+            "Rougin\\SparkPlug\\": "tests"
         }
     },
     "scripts": {
@@ -40,12 +40,12 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.5-dev"
+            "dev-master": "1.0-dev"
         }
     },
     "suggest": {
-        "rougin/codeigniter": "Yet another way to install CodeIgniter via Composer",
-        "rougin/combustor": "Lets you generate controllers, models, and views from database tables for CodeIgniter",
+        "rougin/codeigniter": "Installs CodeIgniter core through Composer",
+        "rougin/combustor": "Generate controllers, models, and views from database for CodeIgniter",
         "rougin/refinery": "\"Ready-to-eat\" migrations for CodeIgniter"
     }
 }
