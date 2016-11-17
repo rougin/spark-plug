@@ -10,7 +10,7 @@ use RecursiveDirectoryIterator;
 /**
  * Spark Plug
  *
- * Returns a CodeIgniter's instance.
+ * Returns the instance of CodeIgniter.
  *
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
@@ -45,7 +45,7 @@ class SparkPlug
     }
 
     /**
-     * Returns a CodeIgniter instance.
+     * Returns the instance of CodeIgniter.
      *
      * @return \CI_Controller
      */
