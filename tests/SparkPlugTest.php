@@ -1,13 +1,8 @@
 <?php
 
-namespace Rougin\SparkPlug\Test;
+namespace Rougin\SparkPlug;
 
-use Rougin\SparkPlug\Instance;
-use Rougin\SparkPlug\SparkPlug;
-
-use PHPUnit_Framework_TestCase;
-
-class SparkPlugTest extends PHPUnit_Framework_TestCase
+class SparkPlugTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \CI_Controller
@@ -21,9 +16,10 @@ class SparkPlugTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $_SERVER['CI_ENV'] = 'production';
+        $folder = __DIR__ . '/TestApp';
+        $server = [ 'CI_ENV' => 'production' ];
 
-        $this->ci = Instance::create(__DIR__ . '/TestApp', $_SERVER);
+        $this->ci = \Rougin\SparkPlug\Instance::create($folder, $server);
     }
 
     /**

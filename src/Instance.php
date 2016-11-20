@@ -15,18 +15,16 @@ class Instance
     /**
      * Creates an instance of CodeIgniter based on the application path.
      *
-     * @param  string $appPath
+     * @param  string $path
      * @param  array  $server
      * @param  array  $globals
      * @return \CI_Controller
      */
-    public static function create($appPath = '', array $server = [], array $globals = [])
+    public static function create($path = '', array $server = [], array $globals = [])
     {
         $globals = (empty($globals)) ? $GLOBALS : $globals;
-        $server = (empty($server)) ? $_SERVER : $server;
+        $server  = (empty($server)) ? $_SERVER : $server;
 
-        $sparkPlug = new SparkPlug($globals, $server, $appPath);
-        
-        return $sparkPlug->getCodeIgniter();
+        return (new SparkPlug($globals, $server, $path))->getCodeIgniter();
     }
 }
