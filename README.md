@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Obtains an instance of [CodeIgniter](https://codeigniter.com/) gracefully.
+Returns an instance of [CodeIgniter](https://codeigniter.com/).
 
 ## Install
 
