@@ -2,7 +2,7 @@
 
 All Notable changes to `Spark Plug` will be documented in this file.
 
-## [0.5.0](https://github.com/rougin/spark-plug/compare/v0.4.4...v0.5.0) - CURRENT_DATE
+## [0.5.0](https://github.com/rougin/spark-plug/compare/v0.4.4...v0.5.0) - 2016-10-23
 
 ### Changed
 - Code quality
