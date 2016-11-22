@@ -5,7 +5,7 @@ namespace Rougin\SparkPlug;
 /**
  * Spark Plug
  *
- * Returns the instance of CodeIgniter.
+ * Returns an instance of CodeIgniter.
  *
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
@@ -40,7 +40,7 @@ class SparkPlug
     }
 
     /**
-     * Returns the instance of CodeIgniter.
+     * Returns an instance of CodeIgniter.
      *
      * @return \CI_Controller
      */

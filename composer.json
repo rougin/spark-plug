@@ -1,6 +1,6 @@
 {
     "name": "rougin/spark-plug",
-    "description": "Obtains an instance of CodeIgniter gracefully",
+    "description": "Returns an instance of CodeIgniter",
     "keywords": [
         "codeigniter",
         "instance",
