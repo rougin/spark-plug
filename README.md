@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Returns [Codeigniter](https://codeigniter.com/) applications as single variables. Might be useful for testing frameworks such as [PHPUnit](https://phpunit.de/).
+Spark Plug returns [Codeigniter](https://codeigniter.com/) applications as single variables. Might be useful for testing frameworks such as [PHPUnit](https://phpunit.de/).
 
 ## Install
 
@@ -24,7 +24,7 @@ $ composer require rougin/spark-plug
 ``` php
 $ci = Rougin\SparkPlug\Instance::create();
 
-// You can now use its instance
+// You can now use the CI_Controller instance
 $ci->load->helper('inflector');
 ```
 
@@ -37,7 +37,6 @@ $sparkplug = SparkPlug($GLOBALS, $_SERVER);
 
 $ci = $sparkplug->instance();
 
-// You can now use its instance
 $ci->load->helper('inflector');
 ```
 
@@ -48,10 +47,9 @@ use Rougin\SparkPlug\SparkPlug;
 
 $sparkplug = SparkPlug($GLOBALS, $_SERVER);
 
+// Sets the value of the APPPATH constant
 $sparkplug->set('APPPATH', '/path/to/app');
-$sparkplug->set('VIEWPATH', '/path/to/app/views');
 
-// \CI_Controller
 $ci = $sparkplug->instance();
 ```
 
@@ -72,7 +70,7 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 {
     public function testCodeigniterInstance()
     {
-        // Path of your test application
+        // Directory path to the test application
         $application = __DIR__ . '/TestApp';
 
         // Instance::create($path, $_SERVER, $GLOBALS)
@@ -82,8 +80,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
     }
 }
 ```
-
-**NOTE**: To create a mock instance, a [rougin/codeigniter](https://github.com/rougin/codeigniter) package and a test application directory are required. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more examples.
 
 ## Change log
 

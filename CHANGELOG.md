@@ -2,7 +2,7 @@
 
 All notable changes to `Spark Plug` will be documented in this file.
 
-## [0.6.0](https://github.com/rougin/spark-plug/compare/v0.5.0...v0.6.0) - 2018-01-11
+## [0.6.0](https://github.com/rougin/spark-plug/compare/v0.5.0...v0.6.0) - 2018-01-12
 
 ### Added
 - `SparkPlug::instance` method (replaces `getCodeIgniter` method)
