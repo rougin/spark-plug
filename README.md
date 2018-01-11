@@ -61,7 +61,7 @@ Available constants to be modified:
 * `VENDOR`
 * `VIEWPATH`
 
-NOTE: If set a new `APPPATH` value, it will automatically set its `VIEWPATH` to "`APPPATH`/views".
+**NOTE**: If you set a new `APPPATH` value, the value of `VIEWPATH` will be set to **`APPPATH`/views**.
 
 ### Mock `CI_Controller` for unit testing
 
