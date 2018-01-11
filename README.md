@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Returns [Codeigniter](https://codeigniter.com/) applications as single variables. Useful for testing applications in testing frameworks such as [PHPUnit](https://phpunit.de/).
+Returns [Codeigniter](https://codeigniter.com/) applications as single variables. Might be useful for testing frameworks such as [PHPUnit](https://phpunit.de/).
 
 ## Install
 
@@ -19,7 +19,7 @@ $ composer require rougin/spark-plug
 
 ## Usage
 
-### Using `Instance`
+### Using the `Instance` helper
 
 ``` php
 $ci = Rougin\SparkPlug\Instance::create();
@@ -28,7 +28,7 @@ $ci = Rougin\SparkPlug\Instance::create();
 $ci->load->helper('inflector');
 ```
 
-### Using `SparkPlug`
+### Using the `SparkPlug` class
 
 ``` php
 use Rougin\SparkPlug\SparkPlug;
@@ -41,7 +41,29 @@ $ci = $sparkplug->instance();
 $ci->load->helper('inflector');
 ```
 
-### As a mock instance for unit testing
+### Modify constants to be defined
+
+``` php
+use Rougin\SparkPlug\SparkPlug;
+
+$sparkplug = SparkPlug($GLOBALS, $_SERVER);
+
+$sparkplug->set('APPPATH', '/path/to/app');
+$sparkplug->set('VIEWPATH', '/path/to/app/views');
+
+// \CI_Controller
+$ci = $sparkplug->instance();
+```
+
+Available constants to be modified:
+
+* `APPPATH`
+* `VENDOR`
+* `VIEWPATH`
+
+NOTE: If set a new `APPPATH` value, it will automatically set its `VIEWPATH` to "`APPPATH`/views".
+
+### Mock `CI_Controller` for unit testing
 
 ``` php
 use Rougin\SparkPlug\Instance;

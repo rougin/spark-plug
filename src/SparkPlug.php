@@ -5,7 +5,7 @@ namespace Rougin\SparkPlug;
 /**
  * Spark Plug
  *
- * Returns an instance of CodeIgniter.
+ * Returns Codeigniter applications as single variables.
  *
  * @package SparkPlug
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
@@ -43,15 +43,17 @@ class SparkPlug
 
         $this->path = $path === null ? getcwd() : $path;
 
-        $this->server  = $server;
+        $this->server = $server;
 
-        $this->constants['APPPATH'] = $this->path . '/application/';
+        $apppath = $this->path . '/application/';
+
+        $this->constants['APPPATH'] = $apppath;
+
+        $this->constants['ENVIRONMENT'] = 'development';
 
         $this->constants['VENDOR'] = $this->path . '/vendor/';
 
-        $this->constants['VIEWPATH'] = $this->path . '/application/views/';
-
-        $this->constants['ENVIRONMENT'] = 'development';
+        $this->constants['VIEWPATH'] = $apppath . 'views/';
     }
 
     /**
@@ -100,6 +102,12 @@ class SparkPlug
     public function set($key, $value)
     {
         $this->constants[$key] = $value;
+
+        $same = $key === 'APPPATH';
+
+        $path = $this->constants[$key] . '/views/';
+
+        $same && $this->constants['VIEWPATH'] = $path;
 
         return $this;
     }
