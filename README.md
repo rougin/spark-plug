@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Returns an instance of [CodeIgniter](https://codeigniter.com/).
+Returns [Codeigniter](https://codeigniter.com/) applications as single variables. Useful for testing applications in testing frameworks such as [PHPUnit](https://phpunit.de/).
 
 ## Install
 
@@ -19,7 +19,7 @@ $ composer require rougin/spark-plug
 
 ## Usage
 
-### Basic Usage
+### Using `Instance`
 
 ``` php
 $ci = Rougin\SparkPlug\Instance::create();
@@ -28,23 +28,33 @@ $ci = Rougin\SparkPlug\Instance::create();
 $ci->load->helper('inflector');
 ```
 
+### Using `SparkPlug`
+
+``` php
+use Rougin\SparkPlug\SparkPlug;
+
+$sparkplug = SparkPlug($GLOBALS, $_SERVER);
+
+$ci = $sparkplug->instance();
+
+// You can now use its instance
+$ci->load->helper('inflector');
+```
+
 ### As a mock instance for unit testing
 
 ``` php
-class SparkPlugTest extends \PHPUnit_Framework_TestCase
+use Rougin\SparkPlug\Instance;
+
+class SampleTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Checks if the CodeIgniter instance is successfully retrieved.
-     * 
-     * @return void
-     */
-    public function testCodeIgniterInstance()
+    public function testCodeigniterInstance()
     {
         // Path of your test application
-        $appPath = __DIR__ . '/TestApp';
+        $application = __DIR__ . '/TestApp';
 
-        // Instance::create($appPath, $_SERVER, $GLOBALS)
-        $ci = \Rougin\SparkPlug\Instance::create($appPath);
+        // Instance::create($path, $_SERVER, $GLOBALS)
+        $ci = Instance::create($application);
 
         $this->assertInstanceOf('CI_Controller', $ci);
     }
@@ -53,7 +63,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
 
 **NOTE**: To create a mock instance, a [rougin/codeigniter](https://github.com/rougin/codeigniter) package and a test application directory are required. Kindly check the [tests](https://github.com/rougin/spark-plug/tree/master/tests) directory for more examples.
 
-## Change Log
+## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -62,10 +72,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ``` bash
 $ composer test
 ```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
 ## Security
 

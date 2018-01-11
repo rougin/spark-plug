@@ -2,34 +2,51 @@
 
 namespace Rougin\SparkPlug;
 
+/**
+ * Spark Plug Test
+ *
+ * @package SparkPlug
+ * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ */
 class SparkPlugTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \CI_Controller
      */
-    protected $ci;
+    protected $codeigniter;
 
     /**
-     * Sets up the CodeIgniter instance.
+     * Sets up the Codeigniter instance.
      *
      * @return void
      */
     public function setUp()
     {
-        $folder = __DIR__ . '/TestApp';
-        $server = [ 'CI_ENV' => 'production' ];
+        $_SERVER['CI_ENV'] = 'production';
 
-        $this->ci = \Rougin\SparkPlug\Instance::create($folder, $server);
+        $folder = __DIR__ . '/Application';
+
+        $sparkplug = new SparkPlug($GLOBALS, $_SERVER, $folder);
+
+        $sparkplug->set('APPPATH', $folder . '/');
+
+        $sparkplug->set('VIEWPATH', $folder . '/views/');
+
+        $this->codeigniter = $sparkplug->instance();
     }
 
     /**
-     * Checks if the CodeIgniter instance is successfully retrieved.
+     * Checks if the Codeigniter instance is successfully retrieved.
      *
      * @return void
      */
-    public function testCodeIgniterInstance()
+    public function testCodeigniterInstance()
     {
-        $this->assertInstanceOf('CI_Controller', $this->ci);
+        $expected = get_class($this->codeigniter);
+
+        $result = $this->codeigniter;
+
+        $this->assertInstanceOf($expected, $result);
     }
 
     /**
@@ -39,9 +56,13 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadLibrary()
     {
-        $this->ci->load->library('email');
+        $this->codeigniter->load->library('email');
 
-        $this->assertInstanceOf('CI_Email', $this->ci->email);
+        $expected = get_class($this->codeigniter->email);
+
+        $result = $this->codeigniter->email;
+
+        $this->assertInstanceOf($expected, $result);
     }
 
     /**
@@ -51,7 +72,7 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadHelper()
     {
-        $this->ci->load->helper('inflector');
+        $this->codeigniter->load->helper('inflector');
 
         $this->assertTrue(function_exists('singular'));
     }
@@ -63,8 +84,10 @@ class SparkPlugTest extends \PHPUnit_Framework_TestCase
      */
     public function testEnvironmentConstants()
     {
-        // The said item is "true" in config/production/config.php while it was
-        // "false" in the default config/config.php
-        $this->assertTrue($this->ci->config->item('composer_autoload'));
+        $config = $this->codeigniter->config;
+
+        // The said item is "true" in config/production/config.php
+        // while it was "false" in the default config/config.php
+        $this->assertTrue($config->item('composer_autoload'));
     }
 }

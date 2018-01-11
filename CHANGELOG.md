@@ -1,6 +1,16 @@
 # Changelog
 
-All Notable changes to `Spark Plug` will be documented in this file.
+All notable changes to `Spark Plug` will be documented in this file.
+
+## [0.6.0](https://github.com/rougin/spark-plug/compare/v0.5.0...v0.6.0) - 2018-01-11
+
+### Added
+- `SparkPlug::instance` method (replaces `getCodeIgniter` method)
+- `SparkPlug::set` method for specifying constants manually (e.g `APPPATH`)
+
+### Changed
+- Code quality (renaming all protected methods into one word)
+- Renamed `get_instance.php` to `helpers.php`
 
 ## [0.5.0](https://github.com/rougin/spark-plug/compare/v0.4.4...v0.5.0) - 2016-10-23
 

@@ -15,7 +15,12 @@ class SparkPlug
     /**
      * @var array
      */
-    protected $globals = [];
+    protected $constants = array();
+
+    /**
+     * @var array
+     */
+    protected $globals = array();
 
     /**
      * @var string
@@ -25,41 +30,120 @@ class SparkPlug
     /**
      * @var array
      */
-    protected $server = [];
+    protected $server = array();
 
     /**
-     * @param array  $globals
-     * @param array  $server
-     * @param string $path
+     * @param array       $globals
+     * @param array       $server
+     * @param string|null $path
      */
-    public function __construct(array &$globals, array $server, $path = '')
+    public function __construct(array &$globals, array $server, $path = null)
     {
         $this->globals =& $globals;
-        $this->path    = (empty($path)) ? getcwd() : $path;
+
+        $this->path = $path === null ? getcwd() : $path;
+
         $this->server  = $server;
+
+        $this->constants['APPPATH'] = $this->path . '/application/';
+
+        $this->constants['VENDOR'] = $this->path . '/vendor/';
+
+        $this->constants['VIEWPATH'] = $this->path . '/application/views/';
+
+        $this->constants['ENVIRONMENT'] = 'development';
     }
 
     /**
-     * Returns an instance of CodeIgniter.
+     * Returns the Codeigniter singleton.
+     * NOTE: To be removed in v1.0.0. Use instance() instead.
      *
      * @return \CI_Controller
      */
     public function getCodeIgniter()
     {
-        $this->setPathConstants();
-        $this->prepareEnvironment();
-        $this->defineConstants();
-        $this->loadCommonClasses();
-        $this->setCharacterSets();
-        $this->setConfigurations();
-        $this->loadCoreClasses();
+        return $this->instance();
+    }
 
-        // Loads the get_instance.php for loading libraries
-        require 'get_instance.php';
+    /**
+     * Returns the Codeigniter singleton.
+     *
+     * @return \CI_Controller
+     */
+    public function instance()
+    {
+        $this->paths();
 
-        $ci = \CI_Controller::get_instance();
+        $this->environment($this->constants['ENVIRONMENT']);
 
-        return (empty($ci)) ? new \CI_Controller : $ci;
+        $this->constants();
+
+        $this->common();
+
+        $this->config();
+
+        require 'helpers.php';
+
+        $instance = \CI_Controller::get_instance();
+
+        empty($instance) && $instance = new \CI_Controller;
+
+        return $instance;
+    }
+
+    /**
+     * Sets the constant with a value.
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function set($key, $value)
+    {
+        $this->constants[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Sets the base path.
+     *
+     * @return void
+     */
+    protected function basepath()
+    {
+        $directory = new \RecursiveDirectoryIterator(getcwd());
+
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        foreach ($iterator as $item) {
+            $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
+
+            $exists = strpos($item->getPathname(), $core) !== false;
+
+            $path = str_replace($core, '', $item->getPathname());
+
+            $exists && ! defined('BASEPATH') && define('BASEPATH', $path);
+        }
+    }
+
+    /**
+     * Sets up important charset-related stuff.
+     *
+     * @return void
+     */
+    protected function charset()
+    {
+        ini_set('default_charset', $charset = strtoupper(config_item('charset')));
+
+        defined('MB_ENABLED') || define('MB_ENABLED', extension_loaded('mbstring'));
+
+        $encoding = 'mbstring.internal_encoding';
+
+        ! is_php('5.6') && ! ini_get($encoding) && ini_set($encoding, $charset);
+
+        mb_substitute_character('none') && $enabled = defined('ICONV_ENABLED');
+
+        $enabled || define('ICONV_ENABLED', extension_loaded('iconv'));
     }
 
     /**
@@ -67,11 +151,31 @@ class SparkPlug
      *
      * @return void
      */
-    protected function loadCommonClasses()
+    protected function common()
     {
+        $exists = class_exists('CI_Controller');
+
         require BASEPATH . 'core/Common.php';
 
-        class_exists('CI_Controller') || require BASEPATH . 'core/Controller.php';
+        $exists || require BASEPATH . 'core/Controller.php';
+
+        $this->charset();
+    }
+
+    /**
+     * Sets global configurations.
+     *
+     * @return void
+     */
+    protected function config()
+    {
+        $this->globals['CFG'] =& load_class('Config', 'core');
+
+        $this->globals['UNI'] =& load_class('Utf8', 'core');
+
+        $this->globals['SEC'] =& load_class('Security', 'core');
+
+        $this->core();
     }
 
     /**
@@ -79,11 +183,13 @@ class SparkPlug
      *
      * @return void
      */
-    protected function defineConstants()
+    protected function constants()
     {
-        $constants   = APPPATH . 'config/constants.php';
+        $filename = APPPATH . 'config/constants.php';
+
         $environment = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
-        $filename    = file_exists($environment) ? $environment : $constants;
+
+        file_exists($environment) && $filename = $environment;
 
         defined('FILE_READ_MODE') || require $filename;
     }
@@ -93,57 +199,15 @@ class SparkPlug
      *
      * @return void
      */
-    protected function loadCoreClasses()
+    protected function core()
     {
         load_class('Loader', 'core');
+
         load_class('Router', 'core');
+
         load_class('Input', 'core');
+
         load_class('Lang', 'core');
-    }
-
-    /**
-     * Sets the base path.
-     *
-     * @return void
-     */
-    protected function setBasePath()
-    {
-        $directory = new \RecursiveDirectoryIterator(getcwd());
-        $iterator  = new \RecursiveIteratorIterator($directory);
-
-        foreach ($iterator as $item) {
-            $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
-
-            if (strpos($item->getPathname(), $core) !== false) {
-                $path = str_replace($core, '', $item->getPathname());
-
-                define('BASEPATH', $path);
-
-                break;
-            }
-        }
-    }
-
-    /**
-     * Sets up important charset-related stuff.
-     *
-     * @return void
-     */
-    protected function setCharacterSets()
-    {
-        $charset = strtoupper(config_item('charset'));
-
-        ini_set('default_charset', $charset);
-
-        defined('MB_ENABLED') || define('MB_ENABLED', extension_loaded('mbstring'));
-
-        // mbstring.internal_encoding is deprecated starting with PHP 5.6
-        // and it's usage triggers E_DEPRECATED messages.
-        if (! is_php('5.6') && ! ini_get('mbstring.internal_encoding')) {
-            ini_set('mbstring.internal_encoding', $charset);
-        }
-
-        $this->setIconv();
     }
 
     /**
@@ -151,44 +215,11 @@ class SparkPlug
      *
      * @return void
      */
-    protected function prepareEnvironment()
+    protected function environment($value = 'development')
     {
-        $environment = 'development';
+        isset($this->server['CI_ENV']) && $value = $this->server['CI_ENV'];
 
-        if (isset($this->server['CI_ENV'])) {
-            $environment = $this->server['CI_ENV'];
-        }
-
-        defined('ENVIRONMENT') || define('ENVIRONMENT', $environment);
-    }
-
-    /**
-     * Sets global configurations.
-     *
-     * @return void
-     */
-    protected function setConfigurations()
-    {
-        $this->globals['CFG'] =& load_class('Config', 'core');
-        $this->globals['UNI'] =& load_class('Utf8', 'core');
-        $this->globals['SEC'] =& load_class('Security', 'core');
-    }
-
-    /**
-     * Sets up ICONV.
-     *
-     * @return void
-     */
-    protected function setIconv()
-    {
-        // This is required for mb_convert_encoding() to strip invalid
-        // characters. That's utilized by CI_Utf8, but it's also done for
-        // consistency with iconv.
-        mb_substitute_character('none');
-
-        // There's an ICONV_IMPL constant, but the PHP manual says that using
-        // iconv's predefined constants is "strongly discouraged".
-        defined('ICONV_ENABLED') || define('ICONV_ENABLED', extension_loaded('iconv'));
+        defined('ENVIRONMENT') || define('ENVIRONMENT', $value);
     }
 
     /**
@@ -196,18 +227,22 @@ class SparkPlug
      *
      * @return void
      */
-    protected function setPathConstants()
+    protected function paths()
     {
-        $paths = [
-            'APPPATH'  => $this->path . '/application/',
-            'VENDOR'   => $this->path . '/vendor/',
-            'VIEWPATH' => $this->path . '/application/views/',
-        ];
+        $paths = array();
 
-        foreach ($paths as $key => $value) {
-            defined($key) || define($key, $value);
+        $paths['APPPATH'] = $this->constants['APPPATH'];
+
+        $paths['VENDOR'] = $this->constants['VENDOR'];
+
+        $paths['VIEWPATH'] = $this->constants['VIEWPATH'];
+
+        foreach ((array) $paths as $key => $value) {
+            $defined = defined($key);
+
+            $defined || define($key, $value);
         }
 
-        defined('BASEPATH') || $this->setBasePath();
+        defined('BASEPATH') || $this->basepath();
     }
 }
