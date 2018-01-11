@@ -141,9 +141,7 @@ class SparkPlug
 
         ! is_php('5.6') && ! ini_get($encoding) && ini_set($encoding, $charset);
 
-        mb_substitute_character('none') && $enabled = defined('ICONV_ENABLED');
-
-        $enabled || define('ICONV_ENABLED', extension_loaded('iconv'));
+        $this->iconv();
     }
 
     /**
@@ -185,11 +183,13 @@ class SparkPlug
      */
     protected function constants()
     {
-        $filename = APPPATH . 'config/constants.php';
+        $config = APPPATH . 'config/';
 
-        $environment = APPPATH . 'config/' . ENVIRONMENT . '/constants.php';
+        $constants = $config . ENVIRONMENT . '/constants.php';
 
-        file_exists($environment) && $filename = $environment;
+        $filename = $config . 'constants.php';
+
+        file_exists($constants) && $filename = $constants;
 
         defined('FILE_READ_MODE') || require $filename;
     }
@@ -223,15 +223,26 @@ class SparkPlug
     }
 
     /**
+     * Sets the ICONV constants.
+     *
+     * @param  boolean $enabled
+     * @return void
+     */
+    protected function iconv($enabled = false)
+    {
+        mb_substitute_character('none') && $enabled = defined('ICONV_ENABLED');
+
+        $enabled || define('ICONV_ENABLED', extension_loaded('iconv'));
+    }
+
+    /**
      * Sets up the APPPATH, VENDOR, and BASEPATH constants.
      *
      * @return void
      */
     protected function paths()
     {
-        $paths = array();
-
-        $paths['APPPATH'] = $this->constants['APPPATH'];
+        $paths = array('APPPATH' => $this->constants['APPPATH']);
 
         $paths['VENDOR'] = $this->constants['VENDOR'];
 

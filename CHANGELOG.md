@@ -12,6 +12,11 @@ All notable changes to `Spark Plug` will be documented in this file.
 - Code quality (renaming all protected methods into one word)
 - Renamed `get_instance.php` to `helpers.php`
 
+### Removed
+- `bin` directory
+- `CONDUCT.md`
+- `CONTRIBUTING.md`
+
 ## [0.5.0](https://github.com/rougin/spark-plug/compare/v0.4.4...v0.5.0) - 2016-10-23
 
 ### Changed
