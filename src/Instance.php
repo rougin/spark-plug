@@ -20,11 +20,14 @@ class Instance
      * @param  array  $globals
      * @return \CI_Controller
      */
-    public static function create($path = '', array $server = [], array $globals = [])
+    public static function create($path = '', array $server = array(), array $globals = array())
     {
-        $globals = (empty($globals)) ? $GLOBALS : $globals;
-        $server  = (empty($server)) ? $_SERVER : $server;
+        $globals = empty($globals) ? $GLOBALS : $globals;
 
-        return (new SparkPlug($globals, $server, $path))->getCodeIgniter();
+        $server = empty($server) ? $_SERVER : $server;
+
+        $sparkplug = new SparkPlug($globals, $server, $path);
+
+        return $sparkplug->getCodeIgniter();
     }
 }
