@@ -216,6 +216,8 @@ class SparkPlug
         load_class('Input', 'core');
 
         load_class('Lang', 'core');
+        
+        load_class('Output', 'core');
     }
 
     /**
