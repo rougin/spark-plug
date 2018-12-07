@@ -8,7 +8,7 @@ namespace Rougin\SparkPlug;
  * Returns Codeigniter applications as single variables.
  *
  * @package SparkPlug
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class SparkPlug
 {

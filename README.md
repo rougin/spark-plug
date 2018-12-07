@@ -1,7 +1,7 @@
 # Spark Plug
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]][link-license]
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
@@ -9,15 +9,15 @@
 
 Spark Plug returns [Codeigniter](https://codeigniter.com/) applications as single variables. Might be useful for testing frameworks such as [PHPUnit](https://phpunit.de/).
 
-## Install
+## Installation
 
-Via Composer
+Install `Spark Plug` via [Composer](https://getcomposer.org/):
 
 ``` bash
 $ composer require rougin/spark-plug
 ```
 
-## Usage
+## Basic Usage
 
 ### Using the `Instance` helper
 
@@ -81,9 +81,9 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-## Change log
+## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG][link-changelog] for more information what has changed recently.
 
 ## Testing
 
@@ -91,30 +91,26 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 $ composer test
 ```
 
-## Security
-
-If you discover any security related issues, please email rougingutib@gmail.com instead of using the issue tracker.
-
 ## Credits
 
-- [Rougin Royce Gutib][link-author]
-- [All Contributors][link-contributors]
+- [All contributors][link-contributors]
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/rougin/spark-plug.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/rougin/spark-plug/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/rougin/spark-plug.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/rougin/spark-plug.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/rougin/spark-plug.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/rougin/spark-plug.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/rougin/spark-plug/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/rougin/spark-plug.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/rougin/spark-plug
-[link-travis]: https://travis-ci.org/rougin/spark-plug
-[link-scrutinizer]: https://scrutinizer-ci.com/g/rougin/spark-plug/code-structure
+[link-changelog]: https://github.com/rougin/spark-plug/blob/master/CHANGELOG.md
 [link-code-quality]: https://scrutinizer-ci.com/g/rougin/spark-plug
+[link-contributors]: https://github.com/rougin/spark-plug/contributors
 [link-downloads]: https://packagist.org/packages/rougin/spark-plug
-[link-author]: https://github.com/rougin
-[link-contributors]: ../../contributors
+[link-license]: https://github.com/rougin/spark-plug/blob/master/LICENSE.md
+[link-packagist]: https://packagist.org/packages/rougin/spark-plug
+[link-scrutinizer]: https://scrutinizer-ci.com/g/rougin/spark-plug/code-structure
+[link-travis]: https://travis-ci.org/rougin/spark-plug

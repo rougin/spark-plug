@@ -1,44 +1,55 @@
 {
     "name": "rougin/spark-plug",
-    "description": "Returns Codeigniter applications as single variables.",
+    "description": "Codeigniter applications as single variables.",
     "keywords": ["codeigniter", "instance", "php", "spark-plug"],
-    "homepage": "https://github.com/rougin/spark-plug",
+    "homepage": "https://rougin.github.io/spark-plug/",
     "license": "MIT",
-    "authors": [
+    "authors":
+    [
         {
-            "name": "Rougin Royce Gutib",
+            "name": "Rougin Gutib",
             "email": "rougingutib@gmail.com",
-            "homepage": "https://rougin.github.io",
+            "homepage": "https://rougin.github.io/",
             "role": "Developer"
         }
     ],
-    "require": {
-        "php" : ">=5.4.0"
+    "require":
+    {
+        "php": ">=5.4.0"
     },
-    "require-dev": {
-        "phpunit/phpunit" : "4.*",
-        "scrutinizer/ocular": "~1.1",
-        "rougin/codeigniter": "~3.0"
+    "require-dev":
+    {
+        "phpunit/phpunit": "~4.2|~5.7",
+        "rougin/codeigniter": "~3.0",
+        "scrutinizer/ocular": "~1.1.0"
     },
-    "autoload": {
-        "psr-4": {
+    "autoload":
+    {
+        "psr-4":
+        {
             "Rougin\\SparkPlug\\": "src"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
+    "autoload-dev":
+    {
+        "psr-4":
+        {
             "Rougin\\SparkPlug\\": "tests"
         }
     },
-    "scripts": {
+    "scripts":
+    {
         "test": "phpunit"
     },
-    "extra": {
-        "branch-alias": {
+    "extra":
+    {
+        "branch-alias":
+        {
             "dev-master": "1.0-dev"
         }
     },
-    "suggest": {
+    "suggest":
+    {
         "rougin/codeigniter": "A package that installs Codeigniter's core via Composer.",
         "rougin/combustor": "Generates MVC code for Codeigniter using database tables.",
         "rougin/refinery": "\"Ready-to-eat\" migrations for the Codeigniter framework."

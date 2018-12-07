@@ -6,7 +6,7 @@ namespace Rougin\SparkPlug;
  * Instance Test
  *
  * @package SparkPlug
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class InstanceTest extends SparkPlugTest
 {

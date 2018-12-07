@@ -8,7 +8,7 @@ namespace Rougin\SparkPlug;
  * A static helper for the SparkPlug::instance method.
  *
  * @package SparkPlug
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class Instance
 {
