@@ -2,7 +2,7 @@
 
 All notable changes to `Spark Plug` will be documented in this file.
 
-## [0.6.1](https://github.com/rougin/spark-plug/compare/v0.6.0...v0.6.1) - Unreleased
+## [0.6.1](https://github.com/rougin/spark-plug/compare/v0.6.0...v0.6.1) - 2018-12-11
 
 ### Added
 - Loaded `Output` class
