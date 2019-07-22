@@ -7,10 +7,10 @@
     "authors":
     [
         {
-            "name": "Rougin Gutib",
             "email": "rougingutib@gmail.com",
             "homepage": "https://rougin.github.io/",
-            "role": "Developer"
+            "name": "Rougin Gutib",
+            "role": "Software Engineer"
         }
     ],
     "require":
