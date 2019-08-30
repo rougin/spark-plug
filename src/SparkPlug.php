@@ -80,17 +80,40 @@ class SparkPlug
 
         $this->constants();
 
-        $this->common();
+        require BASEPATH . 'core/Common.php';
 
-        $this->config();
+        load_class('Loader', 'core');
+        $CFG =& load_class('Config', 'core');
+        $UNI =& load_class('Utf8', 'core');
+        $SEC =& load_class('Security', 'core');
+        $RTR =& load_class('Router', 'core');
+        $IN =& load_class('Input', 'core');
+        $LANG =& load_class('Lang', 'core');
+        $OUT =& load_class('Output', 'core');
+
+        require BASEPATH . 'core/Controller.php';
+
+        if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php'))
+        {
+            require_once APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php';
+        }
+
+        $this->charset();
 
         require 'helpers.php';
 
-        $instance = \CI_Controller::get_instance();
+        $class = ucfirst($RTR->class);
+        $ctlPath = APPPATH.'controllers/'.$RTR->directory.$class.'.php';
 
-        empty($instance) && $instance = new \CI_Controller;
+        if (file_exists($ctlPath)) {
+            require_once($ctlPath);
+            $CI = new $class();
+        }
+        else {
+            $CI = new \CI_Controller;
+        }
 
-        return $instance;
+        return $CI;
     }
 
     /**
@@ -153,38 +176,6 @@ class SparkPlug
     }
 
     /**
-     * Loads the Common and the Base Controller class.
-     *
-     * @return void
-     */
-    protected function common()
-    {
-        $exists = class_exists('CI_Controller');
-
-        require BASEPATH . 'core/Common.php';
-
-        $exists || require BASEPATH . 'core/Controller.php';
-
-        $this->charset();
-    }
-
-    /**
-     * Sets global configurations.
-     *
-     * @return void
-     */
-    protected function config()
-    {
-        $this->globals['CFG'] =& load_class('Config', 'core');
-
-        $this->globals['UNI'] =& load_class('Utf8', 'core');
-
-        $this->globals['SEC'] =& load_class('Security', 'core');
-
-        $this->core();
-    }
-
-    /**
      * Loads the framework constants.
      *
      * @return void
@@ -200,24 +191,6 @@ class SparkPlug
         file_exists($constants) && $filename = $constants;
 
         defined('FILE_READ_MODE') || require $filename;
-    }
-
-    /**
-     * Loads the CodeIgniter's core classes.
-     *
-     * @return void
-     */
-    protected function core()
-    {
-        load_class('Loader', 'core');
-
-        load_class('Router', 'core');
-
-        load_class('Input', 'core');
-
-        load_class('Lang', 'core');
-        
-        load_class('Output', 'core');
     }
 
     /**
