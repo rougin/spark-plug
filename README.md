@@ -7,11 +7,11 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Spark Plug returns [Codeigniter](https://codeigniter.com/) applications as single variables. Might be useful for testing frameworks such as [PHPUnit](https://phpunit.de/).
+Spark Plug is a special PHP library that returns [Codeigniter](https://codeigniter.com/) applications as single variables. This package might be useful when testing applications to frameworks such as [PHPUnit](https://phpunit.de/).
 
 ## Installation
 
-Install `Spark Plug` via [Composer](https://getcomposer.org/):
+Install `Spark Plug` through [Composer](https://getcomposer.org/):
 
 ``` bash
 $ composer require rougin/spark-plug
@@ -59,7 +59,7 @@ Available constants to be modified:
 * `VENDOR`
 * `VIEWPATH`
 
-**NOTE**: If you set a new `APPPATH` value, the value of `VIEWPATH` will be set to **`APPPATH`/views**.
+**NOTE**: If you set a new `APPPATH` value, the value of `VIEWPATH` will be set to `APPPATH/views`.
 
 ### Mock `CI_Controller` for unit testing
 
