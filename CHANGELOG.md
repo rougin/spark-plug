@@ -2,6 +2,16 @@
 
 All notable changes to `Spark Plug` will be documented in this file.
 
+## [0.7.0](https://github.com/rougin/spark-plug/compare/v0.6.1...v0.7.0) - Unreleased
+
+### Added
+- `Controller` for type-hinting `Codeigniter 3`'s libraries
+
+### Changed
+- Code documentation by `php-cs-fixer`, code quality by `phpstan`
+- Workflow from `Travis CI` to `Github Actions`
+- Code coverage from `Scrutinizer CI` to `Codecov`
+
 ## [0.6.1](https://github.com/rougin/spark-plug/compare/v0.6.0...v0.6.1) - 2018-12-11
 
 ### Added

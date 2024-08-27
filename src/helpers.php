@@ -1,14 +1,18 @@
 <?php
 
-if (! function_exists('get_instance')) {
+use Rougin\SparkPlug\Controller;
+
+if (! function_exists('get_instance'))
+{
     /**
      * Returns current Codeigniter instance object.
      * Also references to the CI_Controller method.
      *
-     * @return CI_Controller
+     * @return \Rougin\SparkPlug\Controller
      */
     function &get_instance()
     {
-        return CI_Controller::get_instance();
+        /** @var \Rougin\SparkPlug\Controller */
+        return Controller::get_instance();
     }
 }
