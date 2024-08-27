@@ -34,7 +34,7 @@ class SparkPlug
      * @param array<string, string> $server
      * @param string|null           $path
      */
-    public function __construct(array &$globals, array $server, $path = null)
+    public function __construct(array $globals, array $server, $path = null)
     {
         $this->globals = & $globals;
 
