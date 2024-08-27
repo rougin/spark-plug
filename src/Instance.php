@@ -3,22 +3,20 @@
 namespace Rougin\SparkPlug;
 
 /**
- * Instance
- *
- * A static helper for the SparkPlug::instance method.
- *
  * @package SparkPlug
- * @author  Rougin Gutib <rougingutib@gmail.com>
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class Instance
 {
     /**
-     * Creates an instance of CodeIgniter based on the application path.
+     * Creates a Codeigniter instance based on the application path.
      *
-     * @param  string $path
-     * @param  array  $server
-     * @param  array  $globals
-     * @return \CI_Controller
+     * @param string                $path
+     * @param array<string, string> $server
+     * @param array<string, string> $globals
+     *
+     * @return \Rougin\SparkPlug\Controller
      */
     public static function create($path = '', array $server = array(), array $globals = array())
     {

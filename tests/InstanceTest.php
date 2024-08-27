@@ -3,19 +3,16 @@
 namespace Rougin\SparkPlug;
 
 /**
- * Instance Test
- *
  * @package SparkPlug
- * @author  Rougin Gutib <rougingutib@gmail.com>
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class InstanceTest extends SparkPlugTest
 {
     /**
-     * Sets up the Codeigniter instance.
-     *
      * @return void
      */
-    public function setUp()
+    public function doSetUp()
     {
         $server = array('CI_ENV' => 'production');
 
@@ -23,6 +20,6 @@ class InstanceTest extends SparkPlugTest
 
         $instance = Instance::create($folder, $server);
 
-        $this->codeigniter = $instance;
+        $this->ci = $instance;
     }
 }

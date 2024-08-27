@@ -3,22 +3,19 @@
 namespace Rougin\SparkPlug;
 
 /**
- * Spark Plug
- *
- * Returns Codeigniter applications as single variables.
- *
  * @package SparkPlug
- * @author  Rougin Gutib <rougingutib@gmail.com>
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class SparkPlug
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
-    protected $constants = array();
+    protected $consts = array();
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $globals = array();
 
@@ -28,39 +25,45 @@ class SparkPlug
     protected $path = '';
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $server = array();
 
     /**
-     * @param array       $globals
-     * @param array       $server
-     * @param string|null $path
+     * @param array<string, string> $globals
+     * @param array<string, string> $server
+     * @param string|null           $path
      */
     public function __construct(array &$globals, array $server, $path = null)
     {
-        $this->globals =& $globals;
+        $this->globals = & $globals;
 
-        $this->path = $path === null ? getcwd() : $path;
+        $this->path = (string) getcwd();
+
+        if ($path)
+        {
+            $this->path = $path;
+        }
 
         $this->server = $server;
 
-        $apppath = $this->path . '/application/';
+        $path = $this->path . '/application/';
 
-        $this->constants['APPPATH'] = $apppath;
+        $this->consts['APPPATH'] = $path;
 
-        $this->constants['ENVIRONMENT'] = 'development';
+        $this->consts['ENVIRONMENT'] = 'development';
 
-        $this->constants['VENDOR'] = $this->path . '/vendor/';
+        $this->consts['VENDOR'] = $this->path . '/vendor/';
 
-        $this->constants['VIEWPATH'] = $apppath . 'views/';
+        $this->consts['VIEWPATH'] = $path . 'views/';
     }
 
     /**
-     * Returns the Codeigniter singleton.
-     * NOTE: To be removed in v1.0.0. Use instance() instead.
+     * @deprecated since ~0.6, use "instance" instead.
      *
-     * @return \CI_Controller
+     * Returns the Codeigniter singleton.
+     *
+     * @return \Rougin\SparkPlug\Controller
      */
     public function getCodeIgniter()
     {
@@ -70,13 +73,13 @@ class SparkPlug
     /**
      * Returns the Codeigniter singleton.
      *
-     * @return \CI_Controller
+     * @return \Rougin\SparkPlug\Controller
      */
     public function instance()
     {
-        $this->paths();
+        $this->setPaths();
 
-        $this->environment($this->constants['ENVIRONMENT']);
+        $this->environment($this->consts['ENVIRONMENT']);
 
         $this->constants();
 
@@ -86,9 +89,13 @@ class SparkPlug
 
         require 'helpers.php';
 
-        $instance = \CI_Controller::get_instance();
+        /** @var \Rougin\SparkPlug\Controller|null */
+        $instance = Controller::get_instance();
 
-        empty($instance) && $instance = new \CI_Controller;
+        if (empty($instance))
+        {
+            $instance = new Controller;
+        }
 
         return $instance;
     }
@@ -98,16 +105,19 @@ class SparkPlug
      *
      * @param string $key
      * @param string $value
+     *
+     * @return self
      */
     public function set($key, $value)
     {
-        $this->constants[$key] = $value;
+        $this->consts[$key] = $value;
 
-        $same = $key === 'APPPATH';
+        $path = $this->consts[$key] . '/views/';
 
-        $path = $this->constants[$key] . '/views/';
-
-        $same && $this->constants['VIEWPATH'] = $path;
+        if ($key === 'APPPATH')
+        {
+            $this->consts['VIEWPATH'] = $path;
+        }
 
         return $this;
     }
@@ -119,18 +129,29 @@ class SparkPlug
      */
     protected function basepath()
     {
-        $directory = new \RecursiveDirectoryIterator(getcwd());
+        $path = (string) getcwd();
 
-        $iterator = new \RecursiveIteratorIterator($directory);
+        $path = new \RecursiveDirectoryIterator($path);
 
-        foreach ($iterator as $item) {
-            $core = 'core' . DIRECTORY_SEPARATOR . 'CodeIgniter.php';
+        /** @var \SplFileInfo[] */
+        $items = new \RecursiveIteratorIterator($path);
 
-            $exists = strpos($item->getPathname(), $core) !== false;
+        $slash = DIRECTORY_SEPARATOR;
 
-            $path = str_replace($core, '', $item->getPathname());
+        foreach ($items as $item)
+        {
+            $core = 'core' . $slash . 'CodeIgniter.php';
 
-            $exists && ! defined('BASEPATH') && define('BASEPATH', $path);
+            $path = $item->getPathname();
+
+            $exists = strpos($path, $core) !== false;
+
+            $path = str_replace($core, '', $path);
+
+            if ($exists && ! defined('BASEPATH'))
+            {
+                define('BASEPATH', (string) $path);
+            }
         }
     }
 
@@ -141,13 +162,24 @@ class SparkPlug
      */
     protected function charset()
     {
-        ini_set('default_charset', $charset = strtoupper(config_item('charset')));
+        /** @var string */
+        $charset = config_item('charset');
 
-        defined('MB_ENABLED') || define('MB_ENABLED', extension_loaded('mbstring'));
+        $charset = strtoupper($charset);
+
+        ini_set('default_charset', $charset);
+
+        if (! defined('MB_ENABLED'))
+        {
+            define('MB_ENABLED', extension_loaded('mbstring'));
+        }
 
         $encoding = 'mbstring.internal_encoding';
 
-        ! is_php('5.6') && ! ini_get($encoding) && ini_set($encoding, $charset);
+        if (! is_php('5.6') && ! ini_get($encoding))
+        {
+            ini_set($encoding, $charset);
+        }
 
         $this->iconv();
     }
@@ -159,11 +191,12 @@ class SparkPlug
      */
     protected function common()
     {
-        $exists = class_exists('CI_Controller');
-
         require BASEPATH . 'core/Common.php';
 
-        $exists || require BASEPATH . 'core/Controller.php';
+        if (! class_exists('CI_Controller'))
+        {
+            require BASEPATH . 'core/Controller.php';
+        }
 
         $this->charset();
     }
@@ -175,11 +208,20 @@ class SparkPlug
      */
     protected function config()
     {
-        $this->globals['CFG'] =& load_class('Config', 'core');
+        /** @var string */
+        $config = load_class('Config', 'core');
 
-        $this->globals['UNI'] =& load_class('Utf8', 'core');
+        $this->globals['CFG'] = & $config;
 
-        $this->globals['SEC'] =& load_class('Security', 'core');
+        /** @var string */
+        $utf8 = load_class('Utf8', 'core');
+
+        $this->globals['UNI'] = & $utf8;
+
+        /** @var string */
+        $security = load_class('Security', 'core');
+
+        $this->globals['SEC'] = & $security;
 
         $this->core();
     }
@@ -193,13 +235,19 @@ class SparkPlug
     {
         $config = APPPATH . 'config/';
 
-        $constants = $config . ENVIRONMENT . '/constants.php';
+        $consts = $config . ENVIRONMENT . '/constants.php';
 
         $filename = $config . 'constants.php';
 
-        file_exists($constants) && $filename = $constants;
+        if (file_exists($consts))
+        {
+            $filename = $consts;
+        }
 
-        defined('FILE_READ_MODE') || require $filename;
+        if (! defined('FILE_READ_MODE'))
+        {
+            require $filename;
+        }
     }
 
     /**
@@ -216,33 +264,48 @@ class SparkPlug
         load_class('Input', 'core');
 
         load_class('Lang', 'core');
-        
+
         load_class('Output', 'core');
     }
 
     /**
      * Sets up the current environment.
      *
+     * @param string $value
+     *
      * @return void
      */
     protected function environment($value = 'development')
     {
-        isset($this->server['CI_ENV']) && $value = $this->server['CI_ENV'];
+        if (isset($this->server['CI_ENV']))
+        {
+            $value = $this->server['CI_ENV'];
+        }
 
-        defined('ENVIRONMENT') || define('ENVIRONMENT', $value);
+        if (! defined('ENVIRONMENT'))
+        {
+            define('ENVIRONMENT', $value);
+        }
     }
 
     /**
      * Sets the ICONV constants.
      *
-     * @param  boolean $enabled
+     * @param boolean $enabled
+     *
      * @return void
      */
     protected function iconv($enabled = false)
     {
-        mb_substitute_character('none') && $enabled = defined('ICONV_ENABLED');
+        if (mb_substitute_character('none') === true)
+        {
+            $enabled = defined('ICONV_ENABLED');
+        }
 
-        $enabled || define('ICONV_ENABLED', extension_loaded('iconv'));
+        if (! $enabled)
+        {
+            define('ICONV_ENABLED', extension_loaded('iconv'));
+        }
     }
 
     /**
@@ -250,20 +313,25 @@ class SparkPlug
      *
      * @return void
      */
-    protected function paths()
+    protected function setPaths()
     {
-        $paths = array('APPPATH' => $this->constants['APPPATH']);
+        $paths = array('APPPATH' => $this->consts['APPPATH']);
 
-        $paths['VENDOR'] = $this->constants['VENDOR'];
+        $paths['VENDOR'] = $this->consts['VENDOR'];
 
-        $paths['VIEWPATH'] = $this->constants['VIEWPATH'];
+        $paths['VIEWPATH'] = $this->consts['VIEWPATH'];
 
-        foreach ((array) $paths as $key => $value) {
-            $defined = defined($key);
-
-            $defined || define($key, $value);
+        foreach ($paths as $key => $value)
+        {
+            if (! defined($key))
+            {
+                define($key, $value);
+            }
         }
 
-        defined('BASEPATH') || $this->basepath();
+        if (! defined('BASEPATH'))
+        {
+            $this->basepath();
+        }
     }
 }

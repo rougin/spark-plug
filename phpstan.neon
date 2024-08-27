@@ -1,0 +1,15 @@
+parameters:
+  level: 9
+  paths:
+    - src
+    - tests
+  excludePaths:
+    analyse:
+      - tests/Application/views
+      - tests/Codeigniter/application/views
+  scanDirectories:
+    - vendor/rougin/codeigniter/src
+  ignoreErrors:
+    - '#^Constant APPPATH not found\.$#'
+    - '#^Constant BASEPATH not found\.$#'
+    - '#^Constant ENVIRONMENT not found\.$#'
