@@ -20,11 +20,6 @@ class SparkPlug
     protected $globals = array();
 
     /**
-     * @var string
-     */
-    protected $path = '';
-
-    /**
      * @var array<string, string>
      */
     protected $server = array();
@@ -32,30 +27,33 @@ class SparkPlug
     /**
      * @param array<string, string> $globals
      * @param array<string, string> $server
-     * @param string|null           $path
+     * @param string|null           $root
      */
-    public function __construct(array $globals, array $server, $path = null)
+    public function __construct(array $globals, array $server, $root = null)
     {
         $this->globals = & $globals;
 
-        $this->path = (string) getcwd();
-
-        if ($path)
+        if (! $root)
         {
-            $this->path = $path;
+            $root = (string) getcwd();
         }
 
         $this->server = $server;
 
-        $path = $this->path . '/application/';
+        $app = ((string) realpath($root)) . '/';
 
-        $this->consts['APPPATH'] = $path;
+        if (is_dir($root . '/application'))
+        {
+            $app = $root . '/application/';
+        }
+
+        $this->consts['APPPATH'] = $app;
 
         $this->consts['ENVIRONMENT'] = 'development';
 
-        $this->consts['VENDOR'] = $this->path . '/vendor/';
+        $this->consts['VIEWPATH'] = $app . 'views/';
 
-        $this->consts['VIEWPATH'] = $path . 'views/';
+        $this->consts['VENDOR'] = $root . '/vendor/';
     }
 
     /**
