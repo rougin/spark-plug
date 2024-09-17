@@ -21,6 +21,7 @@ namespace Rougin\SparkPlug;
  * @property \CI_Pagination      $pagination
  * @property \CI_Parser          $parser
  * @property \CI_Profiler        $profiler
+ * @property \CI_Session         $session
  * @property \CI_Table           $table
  * @property \CI_Trackback       $trackback
  * @property \CI_Typography      $typography
