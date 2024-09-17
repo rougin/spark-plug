@@ -9,12 +9,12 @@ namespace Rougin\SparkPlug;
  * @property \CI_Config          $config
  * @property \CI_DB              $db
  * @property \CI_Email           $email
- * @property \CI_Email           $email
  * @property \CI_Encrypt         $encrypt
  * @property \CI_Encryption      $encryption
  * @property \CI_Form_validation $form_validation
  * @property \CI_FTP             $ftp
  * @property \CI_Image_lib       $image_lib
+ * @property \CI_Input           $input
  * @property \CI_Javascript      $javascript
  * @property \CI_Jquery          $jquery
  * @property \CI_Migration       $migration
@@ -31,7 +31,7 @@ namespace Rougin\SparkPlug;
  * @property \CI_Xmlrpcs         $xmlrpcs
  * @property \CI_Zip             $zip
  *
- * @package SparkPlug
+ * @package Spark Plug
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
