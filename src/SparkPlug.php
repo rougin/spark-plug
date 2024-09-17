@@ -3,7 +3,7 @@
 namespace Rougin\SparkPlug;
 
 /**
- * @package SparkPlug
+ * @package Spark Plug
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
@@ -33,10 +33,8 @@ class SparkPlug
     {
         $this->globals = & $globals;
 
-        if (! $root)
-        {
-            $root = (string) getcwd();
-        }
+        /** @var string */
+        $root = $root ? $root : getcwd();
 
         $this->server = $server;
 

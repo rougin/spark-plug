@@ -3,7 +3,7 @@
 namespace Rougin\SparkPlug;
 
 /**
- * @package SparkPlug
+ * @package Spark Plug
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
