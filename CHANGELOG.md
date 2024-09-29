@@ -2,7 +2,7 @@
 
 All notable changes to `Spark Plug` will be documented in this file.
 
-## [0.7.0](https://github.com/rougin/spark-plug/compare/v0.6.1...v0.7.0) - Unreleased
+## [0.6.2](https://github.com/rougin/spark-plug/compare/v0.6.1...v0.6.2) - 2024-09-29
 
 ### Added
 - `Controller` for type-hinting `Codeigniter 3`'s libraries
