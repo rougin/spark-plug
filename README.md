@@ -2,12 +2,11 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]][link-license]
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Build Status][ico-build]][link-build]
+[![Coverage Status][ico-coverage]][link-coverage]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Spark Plug is a special PHP library that returns [Codeigniter](https://codeigniter.com/) applications as single variables. This package might be useful when testing applications to frameworks such as [PHPUnit](https://phpunit.de/).
+A special package that returns an application based on [Codeigniter 3](https://codeigniter.com/) as a single variable. Might be useful when testing a `Codeigniter 3` project to frameworks such as [PHPUnit](https://phpunit.de/).
 
 ## Installation
 
@@ -28,16 +27,21 @@ $ci = Rougin\SparkPlug\Instance::create();
 $ci->load->helper('inflector');
 ```
 
+> [!NOTE]
+> Instead of `CI_Controller`, it returns `Rougin\SparkPlug\Controller` for type-hinting its helpers and libraries.
+
 ### Using the `SparkPlug` class
 
 ``` php
 use Rougin\SparkPlug\SparkPlug;
 
-$sparkplug = SparkPlug($GLOBALS, $_SERVER);
+$sparkplug = new SparkPlug($GLOBALS, $_SERVER);
 
 $ci = $sparkplug->instance();
 
+// The Inflector helper is now loaded ---
 $ci->load->helper('inflector');
+// --------------------------------------
 ```
 
 ### Modify constants to be defined
@@ -45,21 +49,23 @@ $ci->load->helper('inflector');
 ``` php
 use Rougin\SparkPlug\SparkPlug;
 
-$sparkplug = SparkPlug($GLOBALS, $_SERVER);
+$sparkplug = new SparkPlug($GLOBALS, $_SERVER);
 
-// Sets the value of the APPPATH constant
+// Set the value of the APPPATH constant ---
 $sparkplug->set('APPPATH', '/path/to/app');
+// -----------------------------------------
 
 $ci = $sparkplug->instance();
 ```
 
-Available constants to be modified:
+Available constants that can be modified:
 
 * `APPPATH`
 * `VENDOR`
 * `VIEWPATH`
 
-**NOTE**: If you set a new `APPPATH` value, the value of `VIEWPATH` will be set to `APPPATH/views`.
+> [!NOTE]
+> If setting a new `APPPATH` value, the value of `VIEWPATH` will be set to `APPPATH/views`.
 
 ### Mock `CI_Controller` for unit testing
 
@@ -99,18 +105,16 @@ $ composer test
 
 The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/rougin/spark-plug.svg?style=flat-square
+[ico-build]: https://img.shields.io/github/actions/workflow/status/rougin/spark-plug/build.yml?style=flat-square
+[ico-coverage]: https://img.shields.io/codecov/c/github/rougin/spark-plug?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/rougin/spark-plug.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/rougin/spark-plug.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/rougin/spark-plug/master.svg?style=flat-square
 [ico-version]: https://img.shields.io/packagist/v/rougin/spark-plug.svg?style=flat-square
 
+[link-build]: https://github.com/rougin/spark-plug/actions
 [link-changelog]: https://github.com/rougin/spark-plug/blob/master/CHANGELOG.md
-[link-code-quality]: https://scrutinizer-ci.com/g/rougin/spark-plug
 [link-contributors]: https://github.com/rougin/spark-plug/contributors
+[link-coverage]: https://app.codecov.io/gh/rougin/spark-plug
 [link-downloads]: https://packagist.org/packages/rougin/spark-plug
 [link-license]: https://github.com/rougin/spark-plug/blob/master/LICENSE.md
 [link-packagist]: https://packagist.org/packages/rougin/spark-plug
-[link-scrutinizer]: https://scrutinizer-ci.com/g/rougin/spark-plug/code-structure
-[link-travis]: https://travis-ci.org/rougin/spark-plug
