@@ -50,11 +50,11 @@
   },
   "suggest":
   {
-    "rougin/codeigniter": "Codeigniter 3's Composer-based package.",
+    "rougin/codeigniter": "A Composer-based Codeigniter 3.",
     "rougin/combustor": "MVC code generator for Codeigniter 3.",
     "rougin/credo": "A Doctrine ORM wrapper for Codeigniter 3.",
     "rougin/ignite": "A Composer-based Codeigniter 3 project.",
-    "rougin/refinery": "Database migrations for Codeigniter 3.",
+    "rougin/refinery": "\"Ready-to-eat\" migrations for Codeigniter 3.",
     "rougin/wildfire": "A Query Builder wrapper for Codeigniter 3."
   }
 }
