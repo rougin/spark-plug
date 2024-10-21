@@ -2,6 +2,11 @@
 
 All notable changes to `Spark Plug` will be documented in this file.
 
+## [0.6.3](https://github.com/rougin/spark-plug/compare/v0.6.2...v0.6.3) - Unreleased
+
+### Changed
+- Minimum PHP version to `v5.3.0`
+
 ## [0.6.2](https://github.com/rougin/spark-plug/compare/v0.6.1...v0.6.2) - 2024-09-29
 
 ### Added
